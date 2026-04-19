@@ -1,0 +1,154 @@
+/* ============================================
+   DESIGN SYSTEM: The Ethereal Intelligence
+   Based on Stitch "Premium Founder AI Interface"
+   ============================================ */
+
+/* --- CSS Custom Properties (Design Tokens) --- */
+:root {
+  /* Surface Hierarchy */
+  --background: #131315;
+  --surface: #131315;
+  --surface-dim: #131315;
+  --surface-bright: #39393b;
+  --surface-container-lowest: #0e0e10;
+  --surface-container-low: #1c1b1d;
+  --surface-container: #201f22;
+  --surface-container-high: #2a2a2c;
+  --surface-container-highest: #353437;
+  --surface-variant: #353437;
+
+  /* Primary Palette */
+  --primary: #c0c1ff;
+  --primary-container: #8083ff;
+  --primary-fixed: #e1e0ff;
+  --primary-fixed-dim: #c0c1ff;
+  --on-primary: #1000a9;
+  --on-primary-container: #0d0096;
+
+  /* Secondary Palette */
+  --secondary: #ddb7ff;
+  --secondary-container: #6f00be;
+  --on-secondary: #490080;
+
+  /* Tertiary Palette */
+  --tertiary: #89ceff;
+  --tertiary-container: #009ada;
+  --on-tertiary: #00344d;
+
+  /* Neutral / Text */
+  --on-surface: #e5e1e4;
+  --on-surface-variant: #c7c4d7;
+  --on-background: #e5e1e4;
+  --inverse-surface: #e5e1e4;
+  --inverse-on-surface: #313032;
+  --inverse-primary: #494bd6;
+
+  /* Outline */
+  --outline: #908fa0;
+  --outline-variant: #464554;
+
+  /* Error */
+  --error: #ffb4ab;
+  --error-container: #93000a;
+
+  /* Signature Gradient */
+  --gradient-primary: linear-gradient(135deg, #c0c1ff, #ddb7ff);
+  --gradient-primary-hover: linear-gradient(135deg, #d0d1ff, #e8cbff);
+  --gradient-glow: 0 0 30px rgba(192, 193, 255, 0.15), 0 0 60px rgba(221, 183, 255, 0.08);
+
+  /* Glass */
+  --glass-bg: rgba(53, 52, 55, 0.45);
+  --glass-bg-hover: rgba(53, 52, 55, 0.6);
+  --glass-blur: blur(20px);
+  --glass-border: rgba(70, 69, 84, 0.15);
+
+  /* Typography */
+  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* Elevation Shadows */
+  --shadow-ambient: 0 20px 40px rgba(0, 0, 0, 0.4);
+  --shadow-float: 0 8px 32px rgba(0, 0, 0, 0.3);
+  --shadow-glow-primary: 0 0 20px rgba(192, 193, 255, 0.12);
+  --shadow-glow-tertiary: 0 0 20px rgba(137, 206, 255, 0.1);
+
+  /* Spacing */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+
+  /* Radius */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-full: 9999px;
+
+  /* Transitions */
+  --transition-fast: 150ms ease-out;
+  --transition-normal: 250ms ease-out;
+  --transition-slow: 400ms ease-out;
+}
+
+/* --- Reset & Base --- */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  font-family: var(--font-family);
+  background: var(--background);
+  color: var(--on-surface);
+  min-height: 100vh;
+  overflow: hidden;
+  line-height: 1.6;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--outline-variant);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--outline);
+}
+
+/* Selection */
+::selection {
+  background: rgba(192, 193, 255, 0.25);
+  color: var(--on-surface);
+}
+
+/* No pure white ever */
+a {
+  color: var(--primary);
+  text-decoration: none;
+}
