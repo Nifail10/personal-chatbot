@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
+import { SplineSceneBasic } from "./components/ui/demo"
 import './App.css'
 
 /* ============================================
@@ -15,7 +16,18 @@ const KNOWLEDGE = {
   },
   built: {
     keywords: ['built', 'build', 'projects', 'portfolio', 'work', 'created', 'made', 'developed', 'shipped'],
-    response: "QueueFree website. Chatbot system. Queue management infrastructure. Doctor workflow tools. Real-time visibility systems. Every piece of QueueFree's tech stack, I built it."
+    response: (
+      <>
+        I build real systems, not just demos.<br /><br />
+        • Tourist Planner — <a href="https://tourist-planner-hits.vercel.app/" target="_blank" rel="noopener noreferrer">https://tourist-planner-hits.vercel.app/</a><br />
+        AI-based travel planning demo<br /><br />
+        • AI Meeting Assistant (in progress) — <a href="https://github.com/Nifail10/AI-meeting-assistant" target="_blank" rel="noopener noreferrer">https://github.com/Nifail10/AI-meeting-assistant</a><br /><br />
+        • Internship Website — <a href="https://github.com/Nifail10/internship_web" target="_blank" rel="noopener noreferrer">https://github.com/Nifail10/internship_web</a><br /><br />
+        • Gym Music Player — <a href="https://github.com/Nifail10/Gym_Music_Player" target="_blank" rel="noopener noreferrer">https://github.com/Nifail10/Gym_Music_Player</a><br /><br />
+        • Gym Website — <a href="https://github.com/Nifail10/Gym_Website" target="_blank" rel="noopener noreferrer">https://github.com/Nifail10/Gym_Website</a><br /><br />
+        Now building QueueFree — solving real-world hospital queue problems.
+      </>
+    )
   },
   working: {
     keywords: ['working on', 'current', 'right now', 'doing', 'focus', 'building now', 'next'],
@@ -100,7 +112,7 @@ function getResponse(input) {
 
   // Fallback for unknown queries
   const fallbacks = [
-    "I build systems that solve real problems. Ask me about my skills, what I have built, or QueueFree.",
+    "I building systems that solve real problems. Ask me about my skills, what I have built, or QueueFree.",
     "That is outside what I can share right now. Try asking about my work, skills, or QueueFree.",
     "I focus on execution, not speculation. Ask me about what I am building or my technical approach."
   ]
@@ -133,6 +145,7 @@ function SendIcon() {
    APP COMPONENT
    ============================================ */
 function App() {
+  const [isEntered, setIsEntered] = useState(false)
   const [messages, setMessages] = useState([])
   const [inputValue, setInputValue] = useState('')
   const [isTyping, setIsTyping] = useState(false)
@@ -155,7 +168,7 @@ function App() {
   }, [messages, isTyping, scrollToBottom])
 
   /* Send message handler */
-  const handleSend = useCallback((text) => {
+  const handleSend = useCallback((text, exactResponse = null) => {
     const messageText = text || inputValue.trim()
     if (!messageText || isTyping) return
 
@@ -182,7 +195,7 @@ function App() {
       const aiResponse = {
         id: Date.now() + 1,
         type: 'ai',
-        text: getResponse(messageText),
+        text: exactResponse !== null ? exactResponse : getResponse(messageText),
         time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       }
       setMessages(prev => [...prev, aiResponse])
@@ -200,13 +213,20 @@ function App() {
 
   /* Starter card click */
   const handleStarterClick = useCallback((text) => {
-    handleSend(text)
+    if (text === "What have you built?") {
+      handleSend(text, KNOWLEDGE.built.response)
+    } else {
+      handleSend(text)
+    }
   }, [handleSend])
 
-  /* Primary action click */
   const handlePrimaryAction = useCallback(() => {
     handleSend("Tell me about Nifail")
   }, [handleSend])
+
+  if (!isEntered) {
+    return <SplineSceneBasic onEnter={() => setIsEntered(true)} />
+  }
 
   return (
     <div className="app-container">
