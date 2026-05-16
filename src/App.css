@@ -1,4 +1,4 @@
-﻿/* ============================================
+/* ============================================
    APP STYLES: Nifail's AI Chatbot
    The Ethereal Intelligence Design System
    ============================================ */
@@ -496,6 +496,47 @@
 @keyframes aiPulse {
   0%, 100% { transform: scale(1); opacity: 0.4; }
   50% { transform: scale(1.08); opacity: 0.7; }
+}
+
+/* --- Compact Suggestion Chips (post-interaction) --- */
+.suggestion-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  padding: 0 0 var(--space-3);
+  animation: chipsFadeIn 0.3s ease-out;
+}
+
+@keyframes chipsFadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.suggestion-chip {
+  padding: 6px 14px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  font-family: var(--font-family);
+  color: var(--on-surface-variant);
+  background: var(--surface-container-low);
+  border: 1px solid var(--outline-variant);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all var(--transition-normal);
+  line-height: 1;
+}
+
+.suggestion-chip:hover {
+  background: var(--surface-container);
+  color: var(--on-surface);
+  border-color: var(--outline);
+  box-shadow: var(--shadow-glow-primary);
+  transform: translateY(-1px);
+}
+
+.suggestion-chip:active {
+  transform: translateY(0);
 }
 
 /* --- Input Bar --- */

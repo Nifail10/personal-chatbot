@@ -3,11 +3,19 @@ import { SplineSceneBasic } from "./components/ui/demo"
 import './App.css'
 
 /* ============================================
-   KNOWLEDGE BASE: Nifail's Personal Context
+   INTENT-BASED RESPONSE SYSTEM
+   Each intent has:
+     - phrases: natural-language triggers (matched via includes)
+     - response: the exact JSX/string returned to the user
    ============================================ */
-const KNOWLEDGE = {
-  about: {
-    keywords: ['who', 'about', 'tell me about', 'nifail', 'yourself', 'introduce', 'you'],
+const INTENTS = [
+  {
+    id: 'about',
+    phrases: [
+      'tell me about you', 'tell me about yourself', 'tell me about nifail',
+      'who are you', 'who is nifail', 'about you', 'about nifail',
+      'introduce yourself', 'introduce you', 'who r u', 'about yourself'
+    ],
     response: (
       <>
         I'm currently a 3rd-year Artificial Intelligence & Data Science student at Hindustan University, Chennai.<br /><br />
@@ -16,12 +24,23 @@ const KNOWLEDGE = {
       </>
     )
   },
-  skills: {
-    keywords: ['skills', 'skill', 'tech stack', 'technologies', 'good at', 'strengths', 'capabilities', 'what can you do'],
+  {
+    id: 'skills',
+    phrases: [
+      'what are your skills', 'your skills', 'what can you do',
+      'tech stack', 'what do you know', 'skills', 'strengths',
+      'capabilities', 'technologies', 'good at'
+    ],
     response: "Full-stack development. UI/UX design. System architecture. Healthcare technology. Product development. Technical leadership. I build end-to-end, from database to pixel."
   },
-  built: {
-    keywords: ['built', 'build', 'projects', 'portfolio', 'work', 'created', 'made', 'developed', 'shipped'],
+  {
+    id: 'projects',
+    phrases: [
+      'what have you built', 'what did you build', 'your projects',
+      'show your projects', 'projects', 'portfolio', 'your work',
+      'what did you make', 'what have you made', 'what did you create',
+      'built', 'developed', 'shipped'
+    ],
     response: (
       <>
         I build real systems, not just demos.<br /><br />
@@ -37,12 +56,13 @@ const KNOWLEDGE = {
       </>
     )
   },
-  working: {
-    keywords: ['working on', 'current', 'right now', 'doing', 'focus', 'building now', 'next'],
-    response: "Scaling QueueFree. Conducting doctor surveys for validation. Preparing for pilot launch. Refining the healthcare queue infrastructure to handle real hospital traffic."
-  },
-  experience: {
-    keywords: ['experience', 'background', 'journey', 'career', 'history', 'resume'],
+  {
+    id: 'experience',
+    phrases: [
+      'do you have experience', 'your experience', 'work experience',
+      'have you worked before', 'experience', 'background',
+      'career', 'resume', 'journey'
+    ],
     response: (
       <>
         I don't have formal industry experience yet, but I've been consistently building real-world systems and projects.<br /><br />
@@ -51,45 +71,112 @@ const KNOWLEDGE = {
       </>
     )
   },
-  queuefree: {
-    keywords: ['queuefree', 'queue free', 'startup', 'company', 'venture', 'business'],
+  {
+    id: 'working',
+    phrases: [
+      'what are you working on', 'current work', 'what are you building',
+      'what are you doing now', 'working on', 'right now',
+      'building now', 'current project', 'focus'
+    ],
+    response: "Scaling QueueFree. Conducting doctor surveys for validation. Preparing for pilot launch. Refining the healthcare queue infrastructure to handle real hospital traffic."
+  },
+  {
+    id: 'credentials',
+    phrases: [
+      'courses', 'certifications', 'certification', 'what course',
+      'what did you study', 'what have you studied', 'your education',
+      'education', 'linkedin', 'profile', 'credentials', 'studied'
+    ],
+    response: (
+      <>
+        I've completed coursework and certifications in Artificial Intelligence and Data Science, with a focus on practical, real-world applications.<br /><br />
+        You can view my certifications and professional profile here:<br />
+        <a href="https://www.linkedin.com/in/nifail-s-75bbb2319" target="_blank" rel="noopener noreferrer">https://www.linkedin.com/in/nifail-s-75bbb2319</a>
+      </>
+    )
+  },
+  {
+    id: 'queuefree',
+    phrases: [
+      'queuefree', 'queue free', 'startup', 'company',
+      'venture', 'business', 'your startup'
+    ],
     response: "QueueFree is solving OPD queue chaos in Indian hospitals. Real-time queue visibility. Waiting time estimation. Reduced crowding. Better doctor workflow. We are incubated and in validation stage."
   },
-  mission: {
-    keywords: ['mission', 'vision', 'goal', 'why', 'purpose', 'problem', 'solving'],
+  {
+    id: 'mission',
+    phrases: [
+      'mission', 'vision', 'goal', 'why', 'purpose',
+      'what problem', 'solving'
+    ],
     response: "Indian hospitals have broken queue systems. Patients wait hours without knowing their position. QueueFree gives them real-time visibility and gives doctors a better workflow. That is the mission."
   },
-  stage: {
-    keywords: ['stage', 'funding', 'status', 'progress', 'traction', 'incubat'],
+  {
+    id: 'stage',
+    phrases: [
+      'stage', 'funding', 'status', 'progress',
+      'traction', 'incubat'
+    ],
     response: "Incubated. Validation-first approach. Running doctor surveys. Pre-pilot stage. I believe in proving the system works before scaling it."
   },
-  approach: {
-    keywords: ['approach', 'philosophy', 'how', 'method', 'process', 'think'],
+  {
+    id: 'approach',
+    phrases: [
+      'approach', 'philosophy', 'method', 'process',
+      'how do you work', 'how do you think'
+    ],
     response: "Validation before vanity. Build, test, iterate. I do not ship features that have not been validated. Every decision is data-informed and execution-focused."
   },
-  role: {
-    keywords: ['role', 'ceo', 'founder', 'co-founder', 'position', 'title', 'what do you do'],
+  {
+    id: 'role',
+    phrases: [
+      'role', 'ceo', 'founder', 'co-founder', 'position',
+      'title', 'what do you do', 'what is your role'
+    ],
     response: "CEO & Co-Founder. But the title is secondary. I am the one writing the code, designing the interfaces, talking to doctors, and making sure the product actually works."
   },
-  contact: {
-    keywords: ['contact', 'reach', 'connect', 'email', 'social', 'linkedin', 'twitter'],
+  {
+    id: 'contact',
+    phrases: [
+      'contact', 'reach', 'connect', 'email',
+      'social', 'twitter'
+    ],
     response: "Not public yet. If you are a potential collaborator or investor, the right channels will find you."
   },
-  team: {
-    keywords: ['team', 'cofound', 'partner', 'people', 'hiring'],
+  {
+    id: 'team',
+    phrases: [
+      'team', 'cofounder', 'partner', 'people',
+      'hiring', 'cofound'
+    ],
     response: "Small and focused. We move fast because we stay lean. Every team member earns their seat through output, not titles."
   },
-  tech: {
-    keywords: ['technology', 'architecture', 'stack', 'infrastructure', 'system design', 'technical'],
+  {
+    id: 'tech',
+    phrases: [
+      'technology', 'architecture', 'infrastructure',
+      'system design', 'technical'
+    ],
     response: "Real-time systems built for hospital-scale traffic. Queue state management. Predictive wait-time algorithms. Clean API architecture. Built to handle thousands of concurrent patient sessions."
   },
-  design: {
-    keywords: ['design', 'ui', 'ux', 'interface', 'user experience', 'aesthetic'],
+  {
+    id: 'design',
+    phrases: [
+      'design', 'ui', 'ux', 'interface',
+      'user experience', 'aesthetic'
+    ],
     response: "I design interfaces that hospital staff can use under pressure. Clean, focused, zero learning curve. Premium does not mean complex. It means considered."
   }
-}
+]
 
-/* Find best matching response */
+/* Build a lookup map for quick access by intent id (used by button clicks) */
+const INTENT_MAP = Object.fromEntries(INTENTS.map(intent => [intent.id, intent]))
+
+/* ============================================
+   INTENT MATCHER
+   - Longer phrase matches score higher (more specific)
+   - Greeting / thanks handled first as special cases
+   ============================================ */
 function getResponse(input) {
   const lowerInput = input.toLowerCase().trim()
 
@@ -103,34 +190,30 @@ function getResponse(input) {
     return "Anytime. Ask more if you need to."
   }
 
-  // Score each category
-  let bestMatch = null
+  // Score each intent — longer phrase matches score higher
+  let bestIntent = null
   let bestScore = 0
 
-  for (const [, data] of Object.entries(KNOWLEDGE)) {
+  for (const intent of INTENTS) {
     let score = 0
-    for (const keyword of data.keywords) {
-      if (lowerInput.includes(keyword)) {
-        score += keyword.split(' ').length // Multi-word matches score higher
+    for (const phrase of intent.phrases) {
+      if (lowerInput.includes(phrase)) {
+        // Weight by word count so "what are you working on" (5 words) beats "focus" (1 word)
+        score += phrase.split(' ').length
       }
     }
     if (score > bestScore) {
       bestScore = score
-      bestMatch = data
+      bestIntent = intent
     }
   }
 
-  if (bestMatch && bestScore > 0) {
-    return bestMatch.response
+  if (bestIntent && bestScore > 0) {
+    return bestIntent.response
   }
 
-  // Fallback for unknown queries
-  const fallbacks = [
-    "I building systems that solve real problems. Ask me about my skills, what I have built, or QueueFree.",
-    "That is outside what I can share right now. Try asking about my work, skills, or QueueFree.",
-    "I focus on execution, not speculation. Ask me about what I am building or my technical approach."
-  ]
-  return fallbacks[Math.floor(Math.random() * fallbacks.length)]
+  // Deterministic fallback
+  return "I'm here to answer about my work, skills, projects, and startup. Try asking something like 'What have you built?' or 'Tell me about you.'"
 }
 
 /* ============================================
@@ -164,6 +247,7 @@ function App() {
   const [inputValue, setInputValue] = useState('')
   const [isTyping, setIsTyping] = useState(false)
   const [showGreeting, setShowGreeting] = useState(true)
+  const [hasInteracted, setHasInteracted] = useState(false)
   const [inputFocused, setInputFocused] = useState(false)
 
   const messagesEndRef = useRef(null)
@@ -186,9 +270,12 @@ function App() {
     const messageText = text || inputValue.trim()
     if (!messageText || isTyping) return
 
-    // Hide greeting after first message
+    // Hide greeting & mark interacted after first message
     if (showGreeting) {
       setShowGreeting(false)
+    }
+    if (!hasInteracted) {
+      setHasInteracted(true)
     }
 
     // Add user message
@@ -215,7 +302,7 @@ function App() {
       setMessages(prev => [...prev, aiResponse])
       setIsTyping(false)
     }, responseDelay)
-  }, [inputValue, isTyping, showGreeting])
+  }, [inputValue, isTyping, showGreeting, hasInteracted])
 
   /* Key handler */
   const handleKeyDown = useCallback((e) => {
@@ -225,19 +312,25 @@ function App() {
     }
   }, [handleSend])
 
-  /* Starter card click */
+  /* Starter card click — always pass exact response to bypass scorer */
+  const STARTER_INTENT_MAP = {
+    "What have you built?": 'projects',
+    "Do you have experience?": 'experience',
+    "What are your skills?": 'skills',
+    "What are you working on?": 'working',
+  }
+
   const handleStarterClick = useCallback((text) => {
-    if (text === "What have you built?") {
-      handleSend(text, KNOWLEDGE.built.response)
-    } else if (text === "Do you have experience?") {
-      handleSend(text, KNOWLEDGE.experience.response)
+    const intentId = STARTER_INTENT_MAP[text]
+    if (intentId && INTENT_MAP[intentId]) {
+      handleSend(text, INTENT_MAP[intentId].response)
     } else {
       handleSend(text)
     }
   }, [handleSend])
 
   const handlePrimaryAction = useCallback(() => {
-    handleSend("Tell me about Nifail", KNOWLEDGE.about.response)
+    handleSend("Tell me about Nifail", INTENT_MAP.about.response)
   }, [handleSend])
 
   if (!isEntered) {
@@ -273,7 +366,7 @@ function App() {
 
         {/* Chat Content */}
         <div className="chat-content" ref={chatContentRef}>
-          {/* Greeting Section */}
+          {/* Greeting Section — shown before first interaction */}
           {showGreeting && (
             <div className="greeting-section">
               <h1 className="greeting-title">Ask my AI</h1>
@@ -289,7 +382,7 @@ function App() {
                 <span className="primary-action-label">Tell me about Nifail</span>
               </button>
 
-              {/* Starter Cards */}
+              {/* Starter Cards — large grid layout */}
               <div className="starter-cards">
                 {STARTERS.map((starter, idx) => (
                   <button
@@ -338,6 +431,31 @@ function App() {
 
         {/* Input Bar */}
         <div className="input-container">
+          {/* Compact suggestion chips — shown after first interaction */}
+          {hasInteracted && (
+            <div className="suggestion-chips">
+              <button
+                className="suggestion-chip"
+                onClick={handlePrimaryAction}
+                id="chip-primary"
+                type="button"
+              >
+                Tell me about Nifail
+              </button>
+              {STARTERS.map((starter, idx) => (
+                <button
+                  key={idx}
+                  className="suggestion-chip"
+                  onClick={() => handleStarterClick(starter.text)}
+                  id={`chip-${idx}`}
+                  type="button"
+                >
+                  {starter.icon} {starter.text}
+                </button>
+              ))}
+            </div>
+          )}
+
           <div className={`input-bar ${inputFocused ? 'focused' : ''}`}>
             <input
               ref={inputRef}
