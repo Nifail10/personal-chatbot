@@ -8,7 +8,13 @@ import './App.css'
 const KNOWLEDGE = {
   about: {
     keywords: ['who', 'about', 'tell me about', 'nifail', 'yourself', 'introduce', 'you'],
-    response: "I am CEO & Co-Founder of QueueFree, building India's real-time healthcare queue infrastructure. I design, build, and ship production systems that solve real problems."
+    response: (
+      <>
+        I'm currently a 3rd-year Artificial Intelligence & Data Science student at Hindustan University, Chennai.<br /><br />
+        Alongside that, I'm the CEO & Co-Founder of QueueFree, where I'm building India's real-time healthcare queue infrastructure.<br /><br />
+        I design, build, and ship systems that focus on solving real-world problems rather than just theoretical projects.
+      </>
+    )
   },
   skills: {
     keywords: ['skills', 'skill', 'tech stack', 'technologies', 'good at', 'strengths', 'capabilities', 'what can you do'],
@@ -35,7 +41,13 @@ const KNOWLEDGE = {
   },
   experience: {
     keywords: ['experience', 'background', 'journey', 'career', 'history', 'resume'],
-    response: "Building production systems. Leading technical development. Designing user experiences for complex healthcare workflows. I focus on execution, not credentials."
+    response: (
+      <>
+        I don't have formal industry experience yet, but I've been consistently building real-world systems and projects.<br /><br />
+        I've developed multiple applications, including AI-based tools, and I'm currently building my startup, QueueFree.<br /><br />
+        This has given me hands-on experience in solving real problems, designing systems, and shipping products from scratch.
+      </>
+    )
   },
   queuefree: {
     keywords: ['queuefree', 'queue free', 'startup', 'company', 'venture', 'business'],
@@ -215,13 +227,15 @@ function App() {
   const handleStarterClick = useCallback((text) => {
     if (text === "What have you built?") {
       handleSend(text, KNOWLEDGE.built.response)
+    } else if (text === "Do you have experience?") {
+      handleSend(text, KNOWLEDGE.experience.response)
     } else {
       handleSend(text)
     }
   }, [handleSend])
 
   const handlePrimaryAction = useCallback(() => {
-    handleSend("Tell me about Nifail")
+    handleSend("Tell me about Nifail", KNOWLEDGE.about.response)
   }, [handleSend])
 
   if (!isEntered) {
