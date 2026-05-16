@@ -173,21 +173,100 @@ const INTENTS = [
 const INTENT_MAP = Object.fromEntries(INTENTS.map(intent => [intent.id, intent]))
 
 /* ============================================
-   INTENT MATCHER
-   - Longer phrase matches score higher (more specific)
-   - Greeting / thanks handled first as special cases
+   FOLLOW-UP RESPONSES (context-aware)
+   Keyed by intent id → triggered when user asks
+   a vague follow-up after that intent was last matched.
    ============================================ */
-function getResponse(input) {
+const FOLLOW_UPS = {
+  projects: {
+    phrases: [
+      'which one is best', 'tell me more', 'how does it work', 'is it finished',
+      'which is your favorite', 'best project', 'more about it', 'explain',
+      'what does it do', 'how did you build', 'any more', 'more details'
+    ],
+    response: "Tourist Planner is the most polished — it is a live AI-based travel planning tool. QueueFree is my current focus and biggest project. The AI Meeting Assistant is in active development. Each one solves a different real problem."
+  },
+  skills: {
+    phrases: [
+      'which is strongest', 'what do you use most', 'strongest skill',
+      'preferred stack', 'what do you enjoy', 'best at', 'favorite',
+      'tell me more', 'more about it', 'explain', 'more details'
+    ],
+    response: "System architecture and full-stack development are my strongest areas. I primarily work with React, Next.js, Node.js, and Python. I enjoy building end-to-end products where I control every layer from the database to the interface."
+  },
+  about: {
+    phrases: [
+      'tell me more', 'more about you', 'anything else', 'what else',
+      'more details', 'explain', 'elaborate'
+    ],
+    response: "Beyond academics and QueueFree, I spend time building side projects, experimenting with AI tools, and refining my design thinking. I believe in learning by shipping — every project I build teaches me something new."
+  },
+  experience: {
+    phrases: [
+      'tell me more', 'what kind', 'like what', 'examples',
+      'more about it', 'explain', 'more details', 'elaborate'
+    ],
+    response: "My experience comes from building real products — AI tools, full-stack web apps, and now a healthcare startup. I have designed UIs under real constraints, written backend APIs, and handled user-facing deployments. It is all hands-on, not theoretical."
+  },
+  working: {
+    phrases: [
+      'tell me more', 'how is it going', 'when will it launch',
+      'more about it', 'explain', 'more details', 'progress'
+    ],
+    response: "QueueFree is in validation stage. I am running doctor surveys, refining the queue algorithms, and preparing for a pilot deployment. The goal is to prove the system works in a real hospital before scaling."
+  },
+  queuefree: {
+    phrases: [
+      'how does it work', 'what problem does it solve', 'tell me more',
+      'more about it', 'explain', 'more details', 'how', 'why'
+    ],
+    response: "QueueFree gives patients real-time visibility into their OPD queue position and estimated wait time. For doctors, it streamlines patient flow. The system uses real-time state management and predictive algorithms to reduce chaos in hospital waiting areas."
+  },
+  credentials: {
+    phrases: [
+      'tell me more', 'which courses', 'what certifications',
+      'more about it', 'explain', 'more details'
+    ],
+    response: "I have completed coursework in AI, data science, and machine learning. My certifications focus on practical applications rather than just theory. You can see the full list on my LinkedIn profile."
+  }
+}
+
+/* ============================================
+   FOLLOW-UP DETECTION
+   Short/vague inputs that likely refer to the last topic.
+   ============================================ */
+const GENERIC_FOLLOWUP_PHRASES = [
+  'tell me more', 'more', 'explain', 'elaborate', 'go on',
+  'more about it', 'more details', 'what else', 'anything else',
+  'like what', 'how', 'why', 'really', 'interesting',
+  'which one', 'which is best', 'best one', 'favorite'
+]
+
+function isFollowUp(input) {
+  const lower = input.toLowerCase().trim()
+  // Short inputs (3 words or fewer) are likely follow-ups
+  if (lower.split(/\s+/).length <= 3) return true
+  // Check against known generic follow-up phrases
+  return GENERIC_FOLLOWUP_PHRASES.some(phrase => lower.includes(phrase))
+}
+
+/* ============================================
+   INTENT MATCHER (context-aware)
+   - Longer phrase matches score higher (more specific)
+   - Falls back to follow-up responses if lastIntent is set
+   - Returns { response, intentId } so caller can track context
+   ============================================ */
+function getResponse(input, lastIntent = null) {
   const lowerInput = input.toLowerCase().trim()
 
   // Direct greeting
   if (/^(hi|hello|hey|sup|yo|greetings)[\s!?.]*$/i.test(lowerInput)) {
-    return "Ask me anything about what I build, my skills, or QueueFree."
+    return { response: "Ask me anything about what I build, my skills, or QueueFree.", intentId: null }
   }
 
   // Thanks
   if (/^(thanks|thank you|thx|ty)[\s!?.]*$/i.test(lowerInput)) {
-    return "Anytime. Ask more if you need to."
+    return { response: "Anytime. Ask more if you need to.", intentId: null }
   }
 
   // Score each intent — longer phrase matches score higher
@@ -198,7 +277,6 @@ function getResponse(input) {
     let score = 0
     for (const phrase of intent.phrases) {
       if (lowerInput.includes(phrase)) {
-        // Weight by word count so "what are you working on" (5 words) beats "focus" (1 word)
         score += phrase.split(' ').length
       }
     }
@@ -208,12 +286,30 @@ function getResponse(input) {
     }
   }
 
+  // Direct intent match found
   if (bestIntent && bestScore > 0) {
-    return bestIntent.response
+    return { response: bestIntent.response, intentId: bestIntent.id }
+  }
+
+  // No direct match — try follow-up using lastIntent context
+  if (lastIntent && isFollowUp(lowerInput)) {
+    const followUp = FOLLOW_UPS[lastIntent]
+    if (followUp) {
+      // Check if input matches any context-specific follow-up phrase
+      const matchesContext = followUp.phrases.some(p => lowerInput.includes(p))
+      if (matchesContext) {
+        return { response: followUp.response, intentId: lastIntent }
+      }
+      // Generic follow-up — still use context
+      return { response: followUp.response, intentId: lastIntent }
+    }
   }
 
   // Deterministic fallback
-  return "I'm here to answer about my work, skills, projects, and startup. Try asking something like 'What have you built?' or 'Tell me about you.'"
+  return {
+    response: "I'm here to answer about my work, skills, projects, and startup. Try asking something like 'What have you built?' or 'Tell me about you.",
+    intentId: null
+  }
 }
 
 /* ============================================
@@ -250,6 +346,9 @@ function App() {
   const [hasInteracted, setHasInteracted] = useState(false)
   const [inputFocused, setInputFocused] = useState(false)
 
+  /* Conversation memory — tracks last detected intent for follow-ups */
+  const lastIntentRef = useRef(null)
+
   const messagesEndRef = useRef(null)
   const inputRef = useRef(null)
   const chatContentRef = useRef(null)
@@ -266,7 +365,7 @@ function App() {
   }, [messages, isTyping, scrollToBottom])
 
   /* Send message handler */
-  const handleSend = useCallback((text, exactResponse = null) => {
+  const handleSend = useCallback((text, exactResponse = null, intentOverride = null) => {
     const messageText = text || inputValue.trim()
     if (!messageText || isTyping) return
 
@@ -293,10 +392,28 @@ function App() {
     // Simulate AI response with typing delay
     const responseDelay = 600 + Math.random() * 800
     setTimeout(() => {
+      let responseText
+      let detectedIntentId = intentOverride
+
+      if (exactResponse !== null) {
+        // Button click — use exact response, track intent
+        responseText = exactResponse
+      } else {
+        // Typed input — run context-aware matcher
+        const result = getResponse(messageText, lastIntentRef.current)
+        responseText = result.response
+        detectedIntentId = result.intentId
+      }
+
+      // Update conversation memory
+      if (detectedIntentId) {
+        lastIntentRef.current = detectedIntentId
+      }
+
       const aiResponse = {
         id: Date.now() + 1,
         type: 'ai',
-        text: exactResponse !== null ? exactResponse : getResponse(messageText),
+        text: responseText,
         time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       }
       setMessages(prev => [...prev, aiResponse])
@@ -323,14 +440,14 @@ function App() {
   const handleStarterClick = useCallback((text) => {
     const intentId = STARTER_INTENT_MAP[text]
     if (intentId && INTENT_MAP[intentId]) {
-      handleSend(text, INTENT_MAP[intentId].response)
+      handleSend(text, INTENT_MAP[intentId].response, intentId)
     } else {
       handleSend(text)
     }
   }, [handleSend])
 
   const handlePrimaryAction = useCallback(() => {
-    handleSend("Tell me about Nifail", INTENT_MAP.about.response)
+    handleSend("Tell me about Nifail", INTENT_MAP.about.response, 'about')
   }, [handleSend])
 
   if (!isEntered) {
