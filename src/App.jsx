@@ -25,6 +25,8 @@ const KNOWLEDGE = {
     response: (
       <>
         I build real systems, not just demos.<br /><br />
+        • AI Gesture Virtual keyboard — <a href="https://github.com/Nifail10/AI-Gesture-Virtual-Keyboard" target="_blank" rel="noopener noreferrer">https://github.com/Nifail10/AI-Gesture-Virtual-Keyboard</a><br />
+        AI-based virtual keyboard using gestures<br /><br />
         • Tourist Planner — <a href="https://tourist-planner-hits.vercel.app/" target="_blank" rel="noopener noreferrer">https://tourist-planner-hits.vercel.app/</a><br />
         AI-based travel planning demo<br /><br />
         • AI Meeting Assistant (in progress) — <a href="https://github.com/Nifail10/AI-meeting-assistant" target="_blank" rel="noopener noreferrer">https://github.com/Nifail10/AI-meeting-assistant</a><br /><br />
