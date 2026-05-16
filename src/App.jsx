@@ -18,9 +18,9 @@ const INTENTS = [
     ],
     response: (
       <>
-        I'm currently a 3rd-year Artificial Intelligence & Data Science student at Hindustan University, Chennai.<br /><br />
-        Alongside that, I'm the CEO & Co-Founder of QueueFree, where I'm building India's real-time healthcare queue infrastructure.<br /><br />
-        I design, build, and ship systems that focus on solving real-world problems rather than just theoretical projects.
+        3rd-year AI & Data Science student at Hindustan University, Chennai.<br /><br />
+        Also the CEO & Co-Founder of QueueFree. Building India's real-time healthcare queue infrastructure.<br /><br />
+        I design, build, and ship. Real-world systems, not classroom projects.
       </>
     )
   },
@@ -31,7 +31,7 @@ const INTENTS = [
       'tech stack', 'what do you know', 'skills', 'strengths',
       'capabilities', 'technologies', 'good at'
     ],
-    response: "Full-stack development. UI/UX design. System architecture. Healthcare technology. Product development. Technical leadership. I build end-to-end, from database to pixel."
+    response: "Full-stack development. System architecture. UI/UX design. Healthcare tech. From database to pixel, I build the whole thing."
   },
   {
     id: 'projects',
@@ -43,16 +43,17 @@ const INTENTS = [
     ],
     response: (
       <>
-        I build real systems, not just demos.<br /><br />
-        • AI Gesture Virtual keyboard — <a href="https://github.com/Nifail10/AI-Gesture-Virtual-Keyboard" target="_blank" rel="noopener noreferrer">https://github.com/Nifail10/AI-Gesture-Virtual-Keyboard</a><br />
-        AI-based virtual keyboard using gestures<br /><br />
+        Real systems. Not demos.<br /><br />
+        • AI Gesture Virtual Keyboard — <a href="https://github.com/Nifail10/AI-Gesture-Virtual-Keyboard" target="_blank" rel="noopener noreferrer">https://github.com/Nifail10/AI-Gesture-Virtual-Keyboard</a><br />
+        Hand-gesture controlled keyboard. Built with AI.<br /><br />
         • Tourist Planner — <a href="https://tourist-planner-hits.vercel.app/" target="_blank" rel="noopener noreferrer">https://tourist-planner-hits.vercel.app/</a><br />
-        AI-based travel planning demo<br /><br />
-        • AI Meeting Assistant (in progress) — <a href="https://github.com/Nifail10/AI-meeting-assistant" target="_blank" rel="noopener noreferrer">https://github.com/Nifail10/AI-meeting-assistant</a><br /><br />
+        AI-powered travel planning. Live and deployed.<br /><br />
+        • AI Meeting Assistant — <a href="https://github.com/Nifail10/AI-meeting-assistant" target="_blank" rel="noopener noreferrer">https://github.com/Nifail10/AI-meeting-assistant</a><br />
+        In active development.<br /><br />
         • Internship Website — <a href="https://github.com/Nifail10/internship_web" target="_blank" rel="noopener noreferrer">https://github.com/Nifail10/internship_web</a><br /><br />
         • Gym Music Player — <a href="https://github.com/Nifail10/Gym_Music_Player" target="_blank" rel="noopener noreferrer">https://github.com/Nifail10/Gym_Music_Player</a><br /><br />
         • Gym Website — <a href="https://github.com/Nifail10/Gym_Website" target="_blank" rel="noopener noreferrer">https://github.com/Nifail10/Gym_Website</a><br /><br />
-        Now building QueueFree — solving real-world hospital queue problems.
+        Right now, building QueueFree. Fixing hospital queues.
       </>
     )
   },
@@ -65,9 +66,9 @@ const INTENTS = [
     ],
     response: (
       <>
-        I don't have formal industry experience yet, but I've been consistently building real-world systems and projects.<br /><br />
-        I've developed multiple applications, including AI-based tools, and I'm currently building my startup, QueueFree.<br /><br />
-        This has given me hands-on experience in solving real problems, designing systems, and shipping products from scratch.
+        No formal industry experience yet. But I have been shipping real systems consistently.<br /><br />
+        Multiple applications built. AI-based tools shipped. Currently building a startup, QueueFree.<br /><br />
+        Real problems. Real solutions. Products shipped from scratch.
       </>
     )
   },
@@ -78,7 +79,7 @@ const INTENTS = [
       'what are you doing now', 'working on', 'right now',
       'building now', 'current project', 'focus'
     ],
-    response: "Scaling QueueFree. Conducting doctor surveys for validation. Preparing for pilot launch. Refining the healthcare queue infrastructure to handle real hospital traffic."
+    response: "Right now, building QueueFree. Running doctor surveys. Preparing for pilot launch. Refining queue infrastructure to handle real hospital-scale traffic."
   },
   {
     id: 'credentials',
@@ -89,8 +90,8 @@ const INTENTS = [
     ],
     response: (
       <>
-        I've completed coursework and certifications in Artificial Intelligence and Data Science, with a focus on practical, real-world applications.<br /><br />
-        You can view my certifications and professional profile here:<br />
+        Coursework and certifications in AI and Data Science. Focused on practical application, not just theory.<br /><br />
+        Full profile and credentials here:<br />
         <a href="https://www.linkedin.com/in/nifail-s-75bbb2319" target="_blank" rel="noopener noreferrer">https://www.linkedin.com/in/nifail-s-75bbb2319</a>
       </>
     )
@@ -101,7 +102,7 @@ const INTENTS = [
       'queuefree', 'queue free', 'startup', 'company',
       'venture', 'business', 'your startup'
     ],
-    response: "QueueFree is solving OPD queue chaos in Indian hospitals. Real-time queue visibility. Waiting time estimation. Reduced crowding. Better doctor workflow. We are incubated and in validation stage."
+    response: "QueueFree fixes OPD queue chaos in Indian hospitals. Real-time queue visibility. Wait-time estimation. Less crowding. Better doctor workflow. Incubated. In validation stage."
   },
   {
     id: 'mission',
@@ -109,7 +110,7 @@ const INTENTS = [
       'mission', 'vision', 'goal', 'why', 'purpose',
       'what problem', 'solving'
     ],
-    response: "Indian hospitals have broken queue systems. Patients wait hours without knowing their position. QueueFree gives them real-time visibility and gives doctors a better workflow. That is the mission."
+    response: "Hospital queues in India are broken. Patients wait hours with zero visibility. QueueFree changes that. Real-time position tracking. Better doctor workflow. That is the mission."
   },
   {
     id: 'stage',
@@ -117,7 +118,7 @@ const INTENTS = [
       'stage', 'funding', 'status', 'progress',
       'traction', 'incubat'
     ],
-    response: "Incubated. Validation-first approach. Running doctor surveys. Pre-pilot stage. I believe in proving the system works before scaling it."
+    response: "Incubated. Pre-pilot stage. Running doctor surveys right now. I prove the system works first, then scale. No shortcuts."
   },
   {
     id: 'approach',
@@ -125,7 +126,7 @@ const INTENTS = [
       'approach', 'philosophy', 'method', 'process',
       'how do you work', 'how do you think'
     ],
-    response: "Validation before vanity. Build, test, iterate. I do not ship features that have not been validated. Every decision is data-informed and execution-focused."
+    response: "Validation before vanity. Build, test, iterate. Nothing ships without being validated first. Every decision is data-driven and execution-focused."
   },
   {
     id: 'role',
@@ -133,7 +134,7 @@ const INTENTS = [
       'role', 'ceo', 'founder', 'co-founder', 'position',
       'title', 'what do you do', 'what is your role'
     ],
-    response: "CEO & Co-Founder. But the title is secondary. I am the one writing the code, designing the interfaces, talking to doctors, and making sure the product actually works."
+    response: "CEO & Co-Founder. But titles are secondary. I write the code. I design the interfaces. I talk to doctors. I make sure the product works."
   },
   {
     id: 'contact',
@@ -141,7 +142,7 @@ const INTENTS = [
       'contact', 'reach', 'connect', 'email',
       'social', 'twitter'
     ],
-    response: "Not public yet. If you are a potential collaborator or investor, the right channels will find you."
+    response: "Not public yet. The right channels will find the right people."
   },
   {
     id: 'team',
@@ -149,7 +150,7 @@ const INTENTS = [
       'team', 'cofounder', 'partner', 'people',
       'hiring', 'cofound'
     ],
-    response: "Small and focused. We move fast because we stay lean. Every team member earns their seat through output, not titles."
+    response: "Small. Focused. We move fast because we stay lean. Every seat is earned through output, not titles."
   },
   {
     id: 'tech',
@@ -157,7 +158,7 @@ const INTENTS = [
       'technology', 'architecture', 'infrastructure',
       'system design', 'technical'
     ],
-    response: "Real-time systems built for hospital-scale traffic. Queue state management. Predictive wait-time algorithms. Clean API architecture. Built to handle thousands of concurrent patient sessions."
+    response: "Real-time systems. Hospital-scale traffic. Queue state management. Predictive wait-time algorithms. Clean API architecture. Thousands of concurrent sessions."
   },
   {
     id: 'design',
@@ -165,7 +166,7 @@ const INTENTS = [
       'design', 'ui', 'ux', 'interface',
       'user experience', 'aesthetic'
     ],
-    response: "I design interfaces that hospital staff can use under pressure. Clean, focused, zero learning curve. Premium does not mean complex. It means considered."
+    response: "I design for pressure. Hospital staff need interfaces that work instantly. Clean. Focused. Zero learning curve. Premium means considered, not complex."
   }
 ]
 
@@ -184,7 +185,7 @@ const FOLLOW_UPS = {
       'which is your favorite', 'best project', 'more about it', 'explain',
       'what does it do', 'how did you build', 'any more', 'more details'
     ],
-    response: "Tourist Planner is the most polished — it is a live AI-based travel planning tool. QueueFree is my current focus and biggest project. The AI Meeting Assistant is in active development. Each one solves a different real problem."
+    response: "Tourist Planner is the most polished. Live, deployed, AI-powered. QueueFree is the main focus now. AI Meeting Assistant is in active development. Each one solves a different real problem."
   },
   skills: {
     phrases: [
@@ -192,42 +193,42 @@ const FOLLOW_UPS = {
       'preferred stack', 'what do you enjoy', 'best at', 'favorite',
       'tell me more', 'more about it', 'explain', 'more details'
     ],
-    response: "System architecture and full-stack development are my strongest areas. I primarily work with React, Next.js, Node.js, and Python. I enjoy building end-to-end products where I control every layer from the database to the interface."
+    response: "Strongest areas: system architecture and full-stack development. React, Next.js, Node.js, Python. I build end-to-end. Database to interface. Every layer."
   },
   about: {
     phrases: [
       'tell me more', 'more about you', 'anything else', 'what else',
       'more details', 'explain', 'elaborate'
     ],
-    response: "Beyond academics and QueueFree, I spend time building side projects, experimenting with AI tools, and refining my design thinking. I believe in learning by shipping — every project I build teaches me something new."
+    response: "Beyond academics and QueueFree, I build side projects. Experiment with AI tools. Refine my design thinking. I learn by shipping. Every project teaches something new."
   },
   experience: {
     phrases: [
       'tell me more', 'what kind', 'like what', 'examples',
       'more about it', 'explain', 'more details', 'elaborate'
     ],
-    response: "My experience comes from building real products — AI tools, full-stack web apps, and now a healthcare startup. I have designed UIs under real constraints, written backend APIs, and handled user-facing deployments. It is all hands-on, not theoretical."
+    response: "AI tools. Full-stack web apps. Now a healthcare startup. UIs designed under real constraints. Backend APIs written and deployed. All hands-on. Nothing theoretical."
   },
   working: {
     phrases: [
       'tell me more', 'how is it going', 'when will it launch',
       'more about it', 'explain', 'more details', 'progress'
     ],
-    response: "QueueFree is in validation stage. I am running doctor surveys, refining the queue algorithms, and preparing for a pilot deployment. The goal is to prove the system works in a real hospital before scaling."
+    response: "Validation stage. Doctor surveys running. Queue algorithms being refined. Pilot deployment in preparation. Prove it works first. Then scale."
   },
   queuefree: {
     phrases: [
       'how does it work', 'what problem does it solve', 'tell me more',
       'more about it', 'explain', 'more details', 'how', 'why'
     ],
-    response: "QueueFree gives patients real-time visibility into their OPD queue position and estimated wait time. For doctors, it streamlines patient flow. The system uses real-time state management and predictive algorithms to reduce chaos in hospital waiting areas."
+    response: "Patients see their queue position and wait time in real time. Doctors get streamlined patient flow. Real-time state management. Predictive algorithms. Less chaos in waiting areas."
   },
   credentials: {
     phrases: [
       'tell me more', 'which courses', 'what certifications',
       'more about it', 'explain', 'more details'
     ],
-    response: "I have completed coursework in AI, data science, and machine learning. My certifications focus on practical applications rather than just theory. You can see the full list on my LinkedIn profile."
+    response: "AI, data science, machine learning. Certifications focused on practical application. Full list is on my LinkedIn."
   }
 }
 
@@ -261,7 +262,7 @@ function getResponse(input, lastIntent = null) {
 
   // Direct greeting
   if (/^(hi|hello|hey|sup|yo|greetings)[\s!?.]*$/i.test(lowerInput)) {
-    return { response: "Ask me anything about what I build, my skills, or QueueFree.", intentId: null }
+    return { response: "Ask me anything. My work, skills, or QueueFree.", intentId: null }
   }
 
   // Thanks
@@ -307,7 +308,7 @@ function getResponse(input, lastIntent = null) {
 
   // Deterministic fallback
   return {
-    response: "I'm here to answer about my work, skills, projects, and startup. Try asking something like 'What have you built?' or 'Tell me about you.",
+    response: "I answer about my work, skills, projects, and startup. Try 'What have you built?' or 'Tell me about you.'",
     intentId: null
   }
 }
